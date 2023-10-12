@@ -31,8 +31,13 @@ export default function Home() {
           <h3 className='text-[18px] md:text-[22px] '>your voice is the catalyst for change. Join us on a transformative journey,
             empowering you to shape the future you desire..</h3>
           <div className='flex gap-5 py-10'>
-            <Button text={"Create New Poll"} />
-            <Button text={"Register as a Voter"} bg='primary-light' style='' color='primary' />
+            <Link href={'/login'}>
+              <Button text={"Create New Poll"} />
+            </Link>
+            <Link href={'/register'}>
+
+              <Button text={"Register as a Voter"} bg='primary-light' style='' color='primary' />
+            </Link>
           </div>
         </div>
         <aside>

@@ -19,7 +19,7 @@ export default function Home() {
         <ul className='flex m-auto gap-16'>
           <li className='hidden md:inline-block'><Link href={""}>Feature</Link></li>
           <li className='hidden md:inline-block'><Link href={''}>FAQs</Link></li>
-          <li className='hidden md:inline-block'><Link href={''}>FAQs</Link></li>
+          <li className='hidden md:inline-block'><Link href={'/connect'}>Connect</Link></li>
         </ul>
         <Link href={'/login'}>
           <Button text={"Create New Poll"} /></Link>

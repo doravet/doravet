@@ -5,10 +5,17 @@ import Button from '@/components/form/Button'
 import Profile from '../../public/dashboard/icons/Profile'
 import RadioButtons from '@/components/connect/radioButtons'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useContractWrite, usePrepareContractWrite } from 'wagmi'
+import doravetABI from "../contract/doravetABI.json"
 
 
 const Connect = () => {
-
+  const { config } = usePrepareContractWrite({
+    address: '0x450aCa0a50401121a9A2a6C679c29eFBd340DCc1',
+    abi: doravetABI,
+    functionName: 'registerVoter',
+  })
+  const { write } = useContractWrite(config)
  
   
   return (
@@ -24,7 +31,7 @@ const Connect = () => {
             <div className='flex items-center'>
               <p className='mx-4'>Support</p>
 
-              <ConnectButton/>
+              <ConnectButton disabled={!write} onClick={() => write?.()}/>
             </div>
          
             <div className='flex items-center'>

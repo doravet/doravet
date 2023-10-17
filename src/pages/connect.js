@@ -13,7 +13,7 @@ const Connect = () => {
 
   const [isConnected, setIsConnected] = useState(false)
   const { config } = usePrepareContractWrite({
-    address: '0x450aCa0a50401121a9A2a6C679c29eFBd340DCc1',
+    address: '0xf68F6B997D8c51A1622eEFF57AD6A1628c2F60E6',
     abi: doravetABI,
     functionName: 'registerVoter',
   })

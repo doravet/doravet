@@ -5,9 +5,17 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import Delete from '../../../../public/dashboard/icons/Delete';
 import Modal from '@/components/modal';
 import QuestionFields from './questionFields';
+import { useContractWrite, usePrepareContractWrite } from 'wagmi'
+import doravetABI from "../../../contract/doravetABI.json"
 
 const PollForm = () => {
   const [open, setOpen] = useState(false);
+  const { config } = usePrepareContractWrite({
+    address: '0xf68F6B997D8c51A1622eEFF57AD6A1628c2F60E6',
+    abi: doravetABI,
+    functionName: 'getCampaign',
+  })
+  const { write } = useContractWrite(config)
 
   const toggleModal = () => {
     setOpen(prev => !prev)
@@ -47,7 +55,7 @@ const PollForm = () => {
           </form>
           <section className='rounded-lg border p-4 bg-white flex justify-between items-center gap-10'>
             <Button bg='primary-light' color='primary' text={'Add Question'} />
-            <Button text={'Launch Poll'} />
+            <Button text={'Launch Poll'} disabled={!write} onClick={() => write?.()}/>
           </section>
         </form>
       </aside>

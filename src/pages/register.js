@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
+
 const poppins = Poppins({ weight: ['400', '700'], subsets: ['latin'] })
 
 const Register = () => {
@@ -51,16 +52,10 @@ const Register = () => {
               placeholder={'Name of organization '}
             />
           </div>
-          <div className='my-5'>
-            <TextInput
-              label={'Password'}
-              type="password"
-              placeholder={'password (Minimum 8 characters)'}
-              icon
-            />
-
-          </div>
+         
+         
           <Button fullWidth text="Register" />
+         
           <p className='text-[16px] my-3 '>
             <span>Already have an account?</span>
             <Link href={'login'}>

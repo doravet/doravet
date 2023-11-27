@@ -11,9 +11,9 @@ import doravetABI from "../../../contract/doravetABI.json"
 const PollForm = () => {
   const [open, setOpen] = useState(false);
   const { config } = usePrepareContractWrite({
-    address: '0xf68F6B997D8c51A1622eEFF57AD6A1628c2F60E6',
+    address: '0x9b901cac3fe40056635fe1e5bb53a6e3e06cc582',
     abi: doravetABI,
-    functionName: 'getCampaign',
+    functionName: 'createCampaign',
   })
   const { write } = useContractWrite(config)
 

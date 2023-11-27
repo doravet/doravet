@@ -4,11 +4,19 @@ import { Poppins } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { useContractWrite, usePrepareContractWrite } from 'wagmi';
+import doravetABI from "../contract/doravetABI.json";
 
 
 const poppins = Poppins({ weight: ['400', '700'], subsets: ['latin'] })
 
 const Register = () => {
+  const { config } = usePrepareContractWrite({
+    address: '0x9b901cac3fe40056635fe1e5bb53a6e3e06cc582',
+    abi: doravetABI,
+    functionName: 'join',
+})
+const { data, isLoading, isSuccess, write } = useContractWrite(config)
   return (
     <main
       className={`flex h-screen p-5 ${poppins.className}`}
@@ -54,7 +62,7 @@ const Register = () => {
           </div>
          
          
-          <Button fullWidth text="Register" />
+          <Button fullWidth text="Register" onClick={() => write?.()} />
          
           <p className='text-[16px] my-3 '>
             <span>Already have an account?</span>

@@ -3,7 +3,6 @@ import Finger from '../../public/dashboard/icons/Finger'
 import Link from 'next/link'
 import Button from '@/components/form/Button'
 import Profile from '../../public/dashboard/icons/Profile'
-import RadioButtons from '@/components/connect/radioButtons'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useContractWrite, usePrepareContractWrite } from 'wagmi'
 import doravetABI from "../contract/doravetABI.json";

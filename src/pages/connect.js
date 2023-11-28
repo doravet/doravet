@@ -27,8 +27,15 @@ const Connect = () => {
 
   const [isConnected, setIsConnected] = useState(true)
   const [voteComplete, setVoteComplete] = useState(false)
+  const [viewResult, setViewResult] = useState(false)
+  const [contestant, setContestant] = useState("")
 
+  const handleVote = () => {
+    if (contestant) {
 
+      setVoteComplete(true)
+    }
+  }
   const { config } = usePrepareContractWrite({
     address: '0xf68F6B997D8c51A1622eEFF57AD6A1628c2F60E6',
     abi: doravetABI,
@@ -79,30 +86,66 @@ const Connect = () => {
 
             </section>
           ) : (
-            <section className='md:w-[500px] mx-auto '>
+            <section className='md:w-[640px] mx-auto '>
               <h3 className='text-center font-semibold my-5'>Employee of the year poll</h3>
+              {
+                !viewResult ? (
+                  <article>
+                    {
+                      !voteComplete ? (
+                        <form className='p-3 border rounded-md'>
+                          <p className='my-3 font-semibold'>Employee of the year</p>
+                          {
+                            contestants.map((contest, id) => (
+                              <label className='flex items-center gap-x-2 my-3 border-t py-3' key={id} onClick={() => setContestant(contest)}>
 
-              <form className='p-3 border rounded-md'>
-                <p className='my-3 font-semibold'>Employee of the year</p>
-                {
-                  contestants.map((contest, id) => (
-                    <label className='flex items-center gap-x-2 my-3 border-t py-3' key={id}>
+                                <input type="radio" name="employee_of_the_year" value={contest.value} />
+                                <p>{contest.name}</p>
+                              </label>
+                            ))
+                          }
+                          <Button text={"Submit"} handleClick={handleVote} />
+                        </form>
+                      ) : (
+                        <section className='p-3 border rounded-md'>
+                          <p className='text-[#4F4F4F] my-5 text-center'>Thank you for voting. Result will be available at the end of the polls.</p>
+                          <p className='text-[#095494] text-center block'>
+                            <span className='mx-3 cursor-pointer' onClick={() => setViewResult(true)}>View Results</span>
+                          </p>
+                        </section>
+                      )
+                    }
+                  </article>
+                ) : (
+                  <article className='flex gap-x-3 items-start'>
+                    <section className=' w-4/6'>
+                      {
+                        contestants.map((contests, id) => (
+                          <div className='bg-white border rounded-md py-3 px-4 my-6' key={id}>
+                            <p className='flex justify-between items-center my-2 font-semibold'>
+                              <span>{contests.name} {contests.value}</span>
+                              <span>65%</span>
+                            </p>
+                            <p className='rounded-lg h-2 overflow-hidden bg-[#D9D9D9]'>
+                              <span className='h-full w-1/2 bg-[#095494] block rounded-md'></span>
+                            </p>
+                            <span className='inline-block text-sm'>6 votes</span>
+                          </div>
+                        ))
+                      }
+                    </section>
+                    <section className='bg-white border rounded-md py-3 px-4 w-2/6 my-6'>
+                      <p className='font-semibold my-2'>Total Votes - 33</p>
+                      <p className='font-semibold my-2'>Registered Voters - 33</p>
+                    </section>
+                  </article>
+                )
+              }
 
-                      <input type="radio" name="employee_of_the_year" value={contest.value} />
-                      <p>{contest.name}</p>
-                    </label>
-                  ))
-                }
-                <Button text={"Submit"} />
-              </form>
 
-              <section className='p-3 border rounded-md'>
-                <p className='text-[#4F4F4F] my-5 text-center'>Thank you for voting. Result will be available at the end of the polls.</p>
-                <Link href={'/'} className='text-[#095494] text-center block'>
-                  <span>&lt;</span>
-                  <span className='mx-3'>Return to Home</span>
-                </Link>
-              </section>
+
+
+
 
             </section>
           )

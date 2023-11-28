@@ -8,9 +8,27 @@ import { useContractWrite, usePrepareContractWrite } from 'wagmi'
 import doravetABI from "../contract/doravetABI.json";
 
 
+const contestants = [
+  {
+    name: "Paschal",
+    value: "chukwu"
+  },
+  {
+    name: "Olamide",
+    value: "ifedola"
+  },
+  {
+    name: "Ifeoluwa",
+    value: "ife"
+  },
+]
+
 const Connect = () => {
 
-  const [isConnected, setIsConnected] = useState(false)
+  const [isConnected, setIsConnected] = useState(true)
+  const [voteComplete, setVoteComplete] = useState(false)
+
+
   const { config } = usePrepareContractWrite({
     address: '0xf68F6B997D8c51A1622eEFF57AD6A1628c2F60E6',
     abi: doravetABI,
@@ -33,7 +51,7 @@ const Connect = () => {
             <div className='flex items-center'>
               <p className='mx-4'>Support</p>
 
-              <ConnectButton disabled={!write} onClick={() => write?.()}/>
+              <ConnectButton disabled={!write} onClick={() => write?.()} />
             </div>
           ) : (
             <div className='flex items-center'>
@@ -65,9 +83,16 @@ const Connect = () => {
               <h3 className='text-center font-semibold my-5'>Employee of the year poll</h3>
 
               <form className='p-3 border rounded-md'>
-                <p className='my-3'>Employee of the year</p>
+                <p className='my-3 font-semibold'>Employee of the year</p>
+                {
+                  contestants.map((contest, id) => (
+                    <label className='flex items-center gap-x-2 my-3 border-t py-3' key={id}>
 
-
+                      <input type="radio" name="employee_of_the_year" value={contest.value} />
+                      <p>{contest.name}</p>
+                    </label>
+                  ))
+                }
                 <Button text={"Submit"} />
               </form>
 

@@ -34,7 +34,7 @@ export default function Home() {
             <Link href={'/login'}>
               <Button text={"Create New Poll"} />
             </Link>
-            <Link href={'/dashboard/overview'}>
+            <Link href={'/voters/login'}>
 
               <Button text={"Vote in a Poll"} bg='primary-light' style='' color='primary' />
             </Link>

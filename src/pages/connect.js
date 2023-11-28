@@ -11,15 +11,18 @@ import doravetABI from "../contract/doravetABI.json";
 const contestants = [
   {
     name: "Paschal",
-    value: "chukwu"
+    value: "chukwu",
+    votes: 25
   },
   {
     name: "Olamide",
-    value: "ifedola"
+    value: "ifedola",
+    votes: 15
   },
   {
     name: "Ifeoluwa",
-    value: "ife"
+    value: "ife",
+    votes: 18
   },
 ]
 
@@ -28,7 +31,11 @@ const Connect = () => {
   const [isConnected, setIsConnected] = useState(true)
   const [voteComplete, setVoteComplete] = useState(false)
   const [viewResult, setViewResult] = useState(false)
-  const [contestant, setContestant] = useState("")
+  const [contestant, setContestant] = useState("");
+
+  const calculateVote = (vote, total) => {
+    return Math.round((vote / total) * 100)
+  }
 
   const handleVote = () => {
     if (contestant) {
@@ -124,12 +131,12 @@ const Connect = () => {
                           <div className='bg-white border rounded-md py-3 px-4 my-6' key={id}>
                             <p className='flex justify-between items-center my-2 font-semibold'>
                               <span>{contests.name} {contests.value}</span>
-                              <span>65%</span>
+                              <span>{calculateVote(contests.votes, 30)}%</span>
                             </p>
                             <p className='rounded-lg h-2 overflow-hidden bg-[#D9D9D9]'>
-                              <span className='h-full w-1/2 bg-[#095494] block rounded-md'></span>
+                              <span className={`h-full w-[${calculateVote(contests.votes, 30)}px]  bg-[#095494] block rounded-md`}></span>
                             </p>
-                            <span className='inline-block text-sm'>6 votes</span>
+                            <span className='inline-block text-sm'>{contests.votes} votes</span>
                           </div>
                         ))
                       }

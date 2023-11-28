@@ -6,6 +6,7 @@ import Profile from '../../public/dashboard/icons/Profile'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useContractWrite, usePrepareContractWrite } from 'wagmi'
 import doravetABI from "../contract/doravetABI.json";
+import { useRouter } from 'next/navigation';
 
 
 const contestants = [
@@ -48,14 +49,17 @@ const Connect = () => {
     abi: doravetABI,
     functionName: 'registerVoter',
   })
+  const router = useRouter()
   const { write } = useContractWrite(config)
-
+  const handleHome = () => {
+    router.push('/');
+  };
   return (
     <section
       className={`h-screen  w-full bg-[#FAFAFA]`}
     >
       <nav className='flex p-6  justify-between bg-white' >
-        <div className='flex gap-2 justify-center items-center'>
+        <div className='flex gap-2 justify-center items-center cursor-pointer' onClick={handleHome}>
           <Finger />
           <h3 className='text-[23.25px] text-[#095494] font-bold'>Doravet</h3>
         </div>

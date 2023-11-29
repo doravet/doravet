@@ -1,7 +1,5 @@
 import Image from 'next/image'
 import { Poppins } from 'next/font/google'
-import Eye from '../../public/assets/icon/eye'
-import Button from '@/components/form/Button'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
@@ -28,7 +26,7 @@ export default function Login() {
           <ConnectButton />
           </div>
 
-          // <Button fullWidth text="Log in" handleClick={handleSubmit} />
+          
           <p className='text-[16px] my-3 cursor-pointer'>
             <span>Don’t have an account?</span>
             <Link href={'register'} className='cursor-pointer'>

@@ -28,7 +28,7 @@ export default function Login() {
           <ConnectButton />
           </div>
 
-          <Button fullWidth text="Log in" handleClick={handleSubmit} />
+          // <Button fullWidth text="Log in" handleClick={handleSubmit} />
           <p className='text-[16px] my-3 cursor-pointer'>
             <span>Don’t have an account?</span>
             <Link href={'register'} className='cursor-pointer'>

@@ -46,16 +46,16 @@ const PollForm = () => {
             <TextInput label={'Title'} placeholder={'e.g Headies Award,Presidential Election'} type={'text'} />
             <TextInput label={'Description'} placeholder={'Describe what the poll is about'} type={'text'} />
             <div className='flex justify-between items-center  w-full gap-4'>
-              <TextInput label={'Start Date'} placeholder={'Describe what the poll is about'} type={'text'} />
-              <TextInput label={'End date'} placeholder={'Describe what the poll is about'} type={'text'} />
+              <TextInput label={'Start Date'} placeholder={'Start date of poll'} type={'date'} />
+              <TextInput label={'End date'} placeholder={'End date of poll'} type={'date'} />
             </div>
           </section>
           <form>
-            <QuestionFields toggleModal={toggleModal} />
+           
           </form>
           <section className='rounded-lg border p-4 bg-white flex justify-between items-center gap-10'>
-            <Button bg='primary-light' color='primary' text={'Add Question'} />
-            <Button text={'Launch Poll'} disabled={!write} onClick={() => write?.()}/>
+            
+            <Button text={'Launch Poll'}  onClick={() => write?.()}/>
           </section>
         </form>
       </aside>

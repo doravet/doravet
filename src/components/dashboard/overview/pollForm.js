@@ -4,18 +4,31 @@ import React, { useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form';
 import Delete from '../../../../public/dashboard/icons/Delete';
 import Modal from '@/components/modal';
-import QuestionFields from './questionFields';
-import { useContractWrite, usePrepareContractWrite } from 'wagmi'
-import doravetABI from "../../../contract/doravetABI.json"
+import { createCampaign, getCampaign } from "@/components/contracts/call";
+
 
 const PollForm = () => {
   const [open, setOpen] = useState(false);
-  const { config } = usePrepareContractWrite({
-    address: '0x9b901cac3fe40056635fe1e5bb53a6e3e06cc582',
-    abi: doravetABI,
-    functionName: 'createCampaign',
-  })
-  const { write } = useContractWrite(config)
+  const [isPoll, setIsPoll] = useState(false);
+  
+  const createPoll = async () => {
+      await createCampaign('Presidential election', 'election of the nation president', '15/10/2023', '16/10/2023');
+
+  }
+
+  const fetchPoll = async () => {
+      const poll = await  getCampaign('0x9b901cac3fe40056635fe1e5bb53a6e3e06cc582');
+      console.log(poll)
+      if (poll) {
+          setIsProfile(true);
+      }
+  };
+
+
+
+  useEffect(() => {
+      fetchPoll();
+  }, []);
 
   const toggleModal = () => {
     setOpen(prev => !prev)
@@ -43,11 +56,11 @@ const PollForm = () => {
       <aside className='justify-center mt-10 flex mb-[130px]'>
         <form className='md:w-[500px] flex flex-col  '>
           <section className='rounded-lg border p-4 bg-white my-4'>
-            <TextInput label={'Title'} placeholder={'e.g Headies Award,Presidential Election'} type={'text'} />
-            <TextInput label={'Description'} placeholder={'Describe what the poll is about'} type={'text'} />
+            <TextInput label={'Title'} placeholder={'e.g Headies Award,Presidential Election'} type={'text'} required/>
+            <TextInput label={'Description'} placeholder={'Describe what the poll is about'} type={'text'} required/>
             <div className='flex justify-between items-center  w-full gap-4'>
-              <TextInput label={'Start Date'} placeholder={'Start date of poll'} type={'date'} />
-              <TextInput label={'End date'} placeholder={'End date of poll'} type={'date'} />
+              <TextInput label={'Start Date'} placeholder={'Start date of poll'} type={'date'} required/>
+              <TextInput label={'End date'} placeholder={'End date of poll'} type={'date'} required/>
             </div>
           </section>
           <form>
@@ -55,7 +68,7 @@ const PollForm = () => {
           </form>
           <section className='rounded-lg border p-4 bg-white flex justify-between items-center gap-10'>
             
-            <Button text={'Launch Poll'}  onClick={() => write?.()}/>
+            <Button text={'Launch Poll'}  onClick={() => createPoll()}/>
           </section>
         </form>
       </aside>

@@ -2,13 +2,35 @@ import Image from 'next/image'
 import { Poppins } from 'next/font/google'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import Button from '@/components/form/Button';
+import React, { useState, useEffect } from 'react'
+import { AllUserCampaigns } from "@/components/contracts/call";
 
 const poppins = Poppins({ weight: ['400', '700'], subsets: ['latin'] })
+
+
+
+
+
 
 export default function Login() {
   const router = useRouter()
   const handleSubmit = () => router.push("/dashboard/overview")
+
+  const [isProfile, setIsProfile] = useState(false);
+  const fetchProfile = async () => {
+    const profile = await  AllUserCampaigns('0x9b901cac3fe40056635fe1e5bb53a6e3e06cc582');
+    console.log(profile)
+    if (profile) {
+        setIsProfile(true);
+    }
+  };
+  
+  
+  
+  useEffect(() => {
+    fetchProfile();
+  }, []);
   return (
     <main
       className={`flex h-screen p-5 ${poppins.className}`}
@@ -22,8 +44,8 @@ export default function Login() {
             </p>
           </aside>
           
-          <div className='my-5 mx-28'>
-          <ConnectButton />
+          <div className='my-5 mx-auto'>
+          <Button fullWidth text="Login" onClick={() => fetchProfile()}/>
           </div>
 
           

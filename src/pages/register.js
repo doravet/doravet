@@ -3,10 +3,10 @@ import TextInput from '@/components/form/TextInput'
 import { Poppins } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
-import { useContractWrite, usePrepareContractWrite } from 'wagmi';
-import doravetABI from "../contract/doravetABI.json";
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { join, AllUserCampaigns } from "@/components/contracts/call";
 
 
 const poppins = Poppins({ weight: ['400', '700'], subsets: ['latin'] })
@@ -15,20 +15,29 @@ const Register = () => {
 
   const [modal, setModal] = useState(false)
   const router = useRouter()
+  const [isProfile, setIsProfile] = useState(false);
+  
+  const createProfile = async () => {
+      await join('Ifeoluwa', 'Sanni, AminiTech', 'ifeoluwaayo5@gmail.com');
 
-
-  const { config } = usePrepareContractWrite({
-    address: '0x9b901cac3fe40056635fe1e5bb53a6e3e06cc582',
-    abi: doravetABI,
-    functionName: 'join',
-  })
-  const { data, isLoading, isSuccess, write } = useContractWrite(config)
-
-  const handleRegister = () => {
-    setModal(true)
-    console.log("modal clicked")
   }
 
+  const fetchProfile = async () => {
+      const profile = await  AllUserCampaigns('0x9b901cac3fe40056635fe1e5bb53a6e3e06cc582');
+      console.log(profile)
+      if (profile) {
+          setIsProfile(true);
+      }
+  };
+
+
+
+  useEffect(() => {
+      fetchProfile();
+  }, []);
+
+
+ 
   const handleWalletConnect = () => {
     write?.()
     router.push("/dashboard/overview")
@@ -52,7 +61,7 @@ const Register = () => {
                 label={'Email address'}
                 type="email"
                 placeholder={'email address'}
-              />
+                required />
             </div>
             <div className='my-5 flex gap-4'>
               <div className='w-1/2'>
@@ -60,14 +69,14 @@ const Register = () => {
                   label={'First Name'}
                   type="text"
                   placeholder={'first name'}
-                />
+                  required />
               </div>
               <div className='w-1/2'>
                 <TextInput
                   label={'Last Name'}
                   type="text"
                   placeholder={'last name'}
-                />
+                  required />
               </div>
 
             </div>
@@ -76,11 +85,11 @@ const Register = () => {
                 label={'Name of organization '}
                 type="text"
                 placeholder={'Name of organization '}
-              />
+                required />
             </div>
 
 
-            <Button fullWidth text="Register" handleClick={handleRegister} />
+            <Button fullWidth text="Register" onClick={() => createProfile()}/>
 
             <p className='text-[16px] my-3 '>
               <span>Already have an account?</span>
@@ -118,9 +127,9 @@ const Register = () => {
               </p>
             </div>
             <section className='rounded-md bg-white py-6 px-8'>
-              <h4 className='text-center my-10'>Connect wallet to complete registeration</h4>
-              <div className='w-2/3 mx-auto'>
-                <Button fullWidth text="Connect wallet" handleClick={handleWalletConnect} />
+              <h4 className='text-center my-10'>Connect wallet to complete registration</h4>
+              <div className='w-full mx-24'>
+                <ConnectButton handleClick={handleWalletConnect} />
               </div>
             </section>
 

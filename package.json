@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.11.0",
     "@rainbow-me/rainbowkit": "^1.1.1",
     "classnames": "^2.3.2",
+    "ethers": "^6.9.0",
     "framer-motion": "^10.16.5",
     "next": "13.5.4",
     "react": "^18",

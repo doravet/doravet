@@ -6,7 +6,7 @@ import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { join, AllUserCampaigns } from "@/components/contracts/call";
+import { join } from "@/components/contracts/call";
 
 
 const poppins = Poppins({ weight: ['400', '700'], subsets: ['latin'] })
@@ -15,25 +15,25 @@ const Register = () => {
 
   const [modal, setModal] = useState(false)
   const router = useRouter()
-  const [isProfile, setIsProfile] = useState(false);
+  const [isJoin, setIsJoin] = useState(false);
   
-  const createProfile = async () => {
-      await join('Ifeoluwa', 'Sanni, AminiTech', 'ifeoluwaayo5@gmail.com');
+  const createJoin= async () => {
+      await join('Ifeoluwa', 'Sanni', 'AminiTech', 'ifeoluwaayo5@gmail.com');
 
   }
 
-  const fetchProfile = async () => {
-      const profile = await  AllUserCampaigns('0x9b901cac3fe40056635fe1e5bb53a6e3e06cc582');
-      console.log(profile)
-      if (profile) {
-          setIsProfile(true);
+  const fetchJoin = async () => {
+      const join = await  join('0x9b901cac3fe40056635fe1e5bb53a6e3e06cc582');
+      console.log(join)
+      if (join) {
+          setIsJoin(true);
       }
   };
 
 
 
   useEffect(() => {
-      fetchProfile();
+      fetchJoin();
   }, []);
 
 
@@ -89,7 +89,7 @@ const Register = () => {
             </div>
 
 
-            <Button fullWidth text="Register" onClick={() => createProfile()}/>
+            <Button fullWidth text="Register" onClick={() => createJoin()}/>
 
             <p className='text-[16px] my-3 '>
               <span>Already have an account?</span>

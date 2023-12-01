@@ -20,7 +20,7 @@ const PollForm = () => {
       const poll = await  getCampaign('0x9b901cac3fe40056635fe1e5bb53a6e3e06cc582');
       console.log(poll)
       if (poll) {
-          setIsProfile(true);
+          setIsPoll(true);
       }
   };
 
